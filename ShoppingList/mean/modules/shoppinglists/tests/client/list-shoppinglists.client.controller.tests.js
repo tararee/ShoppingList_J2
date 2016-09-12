@@ -1,15 +1,15 @@
 (function () {
   'use strict';
 
-  describe('Lists List Controller Tests', function () {
+  describe('Shoppinglists List Controller Tests', function () {
     // Initialize global variables
-    var ListsListController,
+    var ShoppinglistsListController,
       $scope,
       $httpBackend,
       $state,
       Authentication,
-      ListsService,
-      mockList;
+      ShoppinglistsService,
+      mockShoppinglist;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -36,7 +36,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ListsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ShoppinglistsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -44,12 +44,12 @@
       $httpBackend = _$httpBackend_;
       $state = _$state_;
       Authentication = _Authentication_;
-      ListsService = _ListsService_;
+      ShoppinglistsService = _ShoppinglistsService_;
 
       // create mock article
-      mockList = new ListsService({
+      mockShoppinglist = new ShoppinglistsService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'List Name'
+        name: 'Shoppinglist Name'
       });
 
       // Mock logged in user
@@ -57,8 +57,8 @@
         roles: ['user']
       };
 
-      // Initialize the Lists List controller.
-      ListsListController = $controller('ListsListController as vm', {
+      // Initialize the Shoppinglists List controller.
+      ShoppinglistsListController = $controller('ShoppinglistsListController as vm', {
         $scope: $scope
       });
 
@@ -67,23 +67,23 @@
     }));
 
     describe('Instantiate', function () {
-      var mockListList;
+      var mockShoppinglistList;
 
       beforeEach(function () {
-        mockListList = [mockList, mockList];
+        mockShoppinglistList = [mockShoppinglist, mockShoppinglist];
       });
 
-      it('should send a GET request and return all Lists', inject(function (ListsService) {
+      it('should send a GET request and return all Shoppinglists', inject(function (ShoppinglistsService) {
         // Set POST response
-        $httpBackend.expectGET('api/lists').respond(mockListList);
+        $httpBackend.expectGET('api/shoppinglists').respond(mockShoppinglistList);
 
 
         $httpBackend.flush();
 
         // Test form inputs are reset
-        expect($scope.vm.lists.length).toEqual(2);
-        expect($scope.vm.lists[0]).toEqual(mockList);
-        expect($scope.vm.lists[1]).toEqual(mockList);
+        expect($scope.vm.shoppinglists.length).toEqual(2);
+        expect($scope.vm.shoppinglists[0]).toEqual(mockShoppinglist);
+        expect($scope.vm.shoppinglists[1]).toEqual(mockShoppinglist);
 
       }));
     });

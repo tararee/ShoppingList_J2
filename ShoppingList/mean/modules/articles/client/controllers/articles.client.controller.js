@@ -24,7 +24,7 @@ angular
       var article = new Articles({
         title: this.title,
         content: this.content,
-        listColor: this.listColor
+        listColor: this.listColor        
       });
 
       // Redirect after save

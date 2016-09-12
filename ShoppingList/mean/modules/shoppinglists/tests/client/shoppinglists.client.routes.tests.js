@@ -1,10 +1,10 @@
 (function () {
   'use strict';
 
-  describe('Lists Route Tests', function () {
+  describe('Shoppinglists Route Tests', function () {
     // Initialize global variables
     var $scope,
-      ListsService;
+      ShoppinglistsService;
 
     //We can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
@@ -12,21 +12,21 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($rootScope, _ListsService_) {
+    beforeEach(inject(function ($rootScope, _ShoppinglistsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
-      ListsService = _ListsService_;
+      ShoppinglistsService = _ShoppinglistsService_;
     }));
 
     describe('Route Config', function () {
       describe('Main Route', function () {
         var mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('lists');
+          mainstate = $state.get('shoppinglists');
         }));
 
         it('Should have the correct URL', function () {
-          expect(mainstate.url).toEqual('/lists');
+          expect(mainstate.url).toEqual('/shoppinglists');
         });
 
         it('Should be abstract', function () {
@@ -40,43 +40,43 @@
 
       describe('View Route', function () {
         var viewstate,
-          ListsController,
-          mockList;
+          ShoppinglistsController,
+          mockShoppinglist;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          viewstate = $state.get('lists.view');
-          $templateCache.put('modules/lists/client/views/view-list.client.view.html', '');
+          viewstate = $state.get('shoppinglists.view');
+          $templateCache.put('modules/shoppinglists/client/views/view-shoppinglist.client.view.html', '');
 
-          // create mock List
-          mockList = new ListsService({
+          // create mock Shoppinglist
+          mockShoppinglist = new ShoppinglistsService({
             _id: '525a8422f6d0f87f0e407a33',
-            name: 'List Name'
+            name: 'Shoppinglist Name'
           });
 
           //Initialize Controller
-          ListsController = $controller('ListsController as vm', {
+          ShoppinglistsController = $controller('ShoppinglistsController as vm', {
             $scope: $scope,
-            listResolve: mockList
+            shoppinglistResolve: mockShoppinglist
           });
         }));
 
         it('Should have the correct URL', function () {
-          expect(viewstate.url).toEqual('/:listId');
+          expect(viewstate.url).toEqual('/:shoppinglistId');
         });
 
         it('Should have a resolve function', function () {
           expect(typeof viewstate.resolve).toEqual('object');
-          expect(typeof viewstate.resolve.listResolve).toEqual('function');
+          expect(typeof viewstate.resolve.shoppinglistResolve).toEqual('function');
         });
 
         it('should respond to URL', inject(function ($state) {
           expect($state.href(viewstate, {
-            listId: 1
-          })).toEqual('/lists/1');
+            shoppinglistId: 1
+          })).toEqual('/shoppinglists/1');
         }));
 
-        it('should attach an List to the controller scope', function () {
-          expect($scope.vm.list._id).toBe(mockList._id);
+        it('should attach an Shoppinglist to the controller scope', function () {
+          expect($scope.vm.shoppinglist._id).toBe(mockShoppinglist._id);
         });
 
         it('Should not be abstract', function () {
@@ -84,26 +84,26 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(viewstate.templateUrl).toBe('modules/lists/client/views/view-list.client.view.html');
+          expect(viewstate.templateUrl).toBe('modules/shoppinglists/client/views/view-shoppinglist.client.view.html');
         });
       });
 
       describe('Create Route', function () {
         var createstate,
-          ListsController,
-          mockList;
+          ShoppinglistsController,
+          mockShoppinglist;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          createstate = $state.get('lists.create');
-          $templateCache.put('modules/lists/client/views/form-list.client.view.html', '');
+          createstate = $state.get('shoppinglists.create');
+          $templateCache.put('modules/shoppinglists/client/views/form-shoppinglist.client.view.html', '');
 
-          // create mock List
-          mockList = new ListsService();
+          // create mock Shoppinglist
+          mockShoppinglist = new ShoppinglistsService();
 
           //Initialize Controller
-          ListsController = $controller('ListsController as vm', {
+          ShoppinglistsController = $controller('ShoppinglistsController as vm', {
             $scope: $scope,
-            listResolve: mockList
+            shoppinglistResolve: mockShoppinglist
           });
         }));
 
@@ -113,16 +113,16 @@
 
         it('Should have a resolve function', function () {
           expect(typeof createstate.resolve).toEqual('object');
-          expect(typeof createstate.resolve.listResolve).toEqual('function');
+          expect(typeof createstate.resolve.shoppinglistResolve).toEqual('function');
         });
 
         it('should respond to URL', inject(function ($state) {
-          expect($state.href(createstate)).toEqual('/lists/create');
+          expect($state.href(createstate)).toEqual('/shoppinglists/create');
         }));
 
-        it('should attach an List to the controller scope', function () {
-          expect($scope.vm.list._id).toBe(mockList._id);
-          expect($scope.vm.list._id).toBe(undefined);
+        it('should attach an Shoppinglist to the controller scope', function () {
+          expect($scope.vm.shoppinglist._id).toBe(mockShoppinglist._id);
+          expect($scope.vm.shoppinglist._id).toBe(undefined);
         });
 
         it('Should not be abstract', function () {
@@ -130,49 +130,49 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(createstate.templateUrl).toBe('modules/lists/client/views/form-list.client.view.html');
+          expect(createstate.templateUrl).toBe('modules/shoppinglists/client/views/form-shoppinglist.client.view.html');
         });
       });
 
       describe('Edit Route', function () {
         var editstate,
-          ListsController,
-          mockList;
+          ShoppinglistsController,
+          mockShoppinglist;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          editstate = $state.get('lists.edit');
-          $templateCache.put('modules/lists/client/views/form-list.client.view.html', '');
+          editstate = $state.get('shoppinglists.edit');
+          $templateCache.put('modules/shoppinglists/client/views/form-shoppinglist.client.view.html', '');
 
-          // create mock List
-          mockList = new ListsService({
+          // create mock Shoppinglist
+          mockShoppinglist = new ShoppinglistsService({
             _id: '525a8422f6d0f87f0e407a33',
-            name: 'List Name'
+            name: 'Shoppinglist Name'
           });
 
           //Initialize Controller
-          ListsController = $controller('ListsController as vm', {
+          ShoppinglistsController = $controller('ShoppinglistsController as vm', {
             $scope: $scope,
-            listResolve: mockList
+            shoppinglistResolve: mockShoppinglist
           });
         }));
 
         it('Should have the correct URL', function () {
-          expect(editstate.url).toEqual('/:listId/edit');
+          expect(editstate.url).toEqual('/:shoppinglistId/edit');
         });
 
         it('Should have a resolve function', function () {
           expect(typeof editstate.resolve).toEqual('object');
-          expect(typeof editstate.resolve.listResolve).toEqual('function');
+          expect(typeof editstate.resolve.shoppinglistResolve).toEqual('function');
         });
 
         it('should respond to URL', inject(function ($state) {
           expect($state.href(editstate, {
-            listId: 1
-          })).toEqual('/lists/1/edit');
+            shoppinglistId: 1
+          })).toEqual('/shoppinglists/1/edit');
         }));
 
-        it('should attach an List to the controller scope', function () {
-          expect($scope.vm.list._id).toBe(mockList._id);
+        it('should attach an Shoppinglist to the controller scope', function () {
+          expect($scope.vm.shoppinglist._id).toBe(mockShoppinglist._id);
         });
 
         it('Should not be abstract', function () {
@@ -180,7 +180,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(editstate.templateUrl).toBe('modules/lists/client/views/form-list.client.view.html');
+          expect(editstate.templateUrl).toBe('modules/shoppinglists/client/views/form-shoppinglist.client.view.html');
         });
 
         xit('Should go to unauthorized route', function () {

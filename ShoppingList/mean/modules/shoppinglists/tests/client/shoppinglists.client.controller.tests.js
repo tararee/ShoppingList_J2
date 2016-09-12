@@ -1,15 +1,15 @@
 (function () {
   'use strict';
 
-  describe('Lists Controller Tests', function () {
+  describe('Shoppinglists Controller Tests', function () {
     // Initialize global variables
-    var ListsController,
+    var ShoppinglistsController,
       $scope,
       $httpBackend,
       $state,
       Authentication,
-      ListsService,
-      mockList;
+      ShoppinglistsService,
+      mockShoppinglist;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -36,7 +36,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ListsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ShoppinglistsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -44,12 +44,12 @@
       $httpBackend = _$httpBackend_;
       $state = _$state_;
       Authentication = _Authentication_;
-      ListsService = _ListsService_;
+      ShoppinglistsService = _ShoppinglistsService_;
 
-      // create mock List
-      mockList = new ListsService({
+      // create mock Shoppinglist
+      mockShoppinglist = new ShoppinglistsService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'List Name'
+        name: 'Shoppinglist Name'
       });
 
       // Mock logged in user
@@ -57,10 +57,10 @@
         roles: ['user']
       };
 
-      // Initialize the Lists controller.
-      ListsController = $controller('ListsController as vm', {
+      // Initialize the Shoppinglists controller.
+      ShoppinglistsController = $controller('ShoppinglistsController as vm', {
         $scope: $scope,
-        listResolve: {}
+        shoppinglistResolve: {}
       });
 
       //Spy on state go
@@ -68,34 +68,34 @@
     }));
 
     describe('vm.save() as create', function () {
-      var sampleListPostData;
+      var sampleShoppinglistPostData;
 
       beforeEach(function () {
-        // Create a sample List object
-        sampleListPostData = new ListsService({
-          name: 'List Name'
+        // Create a sample Shoppinglist object
+        sampleShoppinglistPostData = new ShoppinglistsService({
+          name: 'Shoppinglist Name'
         });
 
-        $scope.vm.list = sampleListPostData;
+        $scope.vm.shoppinglist = sampleShoppinglistPostData;
       });
 
-      it('should send a POST request with the form input values and then locate to new object URL', inject(function (ListsService) {
+      it('should send a POST request with the form input values and then locate to new object URL', inject(function (ShoppinglistsService) {
         // Set POST response
-        $httpBackend.expectPOST('api/lists', sampleListPostData).respond(mockList);
+        $httpBackend.expectPOST('api/shoppinglists', sampleShoppinglistPostData).respond(mockShoppinglist);
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
 
-        // Test URL redirection after the List was created
-        expect($state.go).toHaveBeenCalledWith('lists.view', {
-          listId: mockList._id
+        // Test URL redirection after the Shoppinglist was created
+        expect($state.go).toHaveBeenCalledWith('shoppinglists.view', {
+          shoppinglistId: mockShoppinglist._id
         });
       }));
 
       it('should set $scope.vm.error if error', function () {
         var errorMessage = 'this is an error message';
-        $httpBackend.expectPOST('api/lists', sampleListPostData).respond(400, {
+        $httpBackend.expectPOST('api/shoppinglists', sampleShoppinglistPostData).respond(400, {
           message: errorMessage
         });
 
@@ -108,27 +108,27 @@
 
     describe('vm.save() as update', function () {
       beforeEach(function () {
-        // Mock List in $scope
-        $scope.vm.list = mockList;
+        // Mock Shoppinglist in $scope
+        $scope.vm.shoppinglist = mockShoppinglist;
       });
 
-      it('should update a valid List', inject(function (ListsService) {
+      it('should update a valid Shoppinglist', inject(function (ShoppinglistsService) {
         // Set PUT response
-        $httpBackend.expectPUT(/api\/lists\/([0-9a-fA-F]{24})$/).respond();
+        $httpBackend.expectPUT(/api\/shoppinglists\/([0-9a-fA-F]{24})$/).respond();
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('lists.view', {
-          listId: mockList._id
+        expect($state.go).toHaveBeenCalledWith('shoppinglists.view', {
+          shoppinglistId: mockShoppinglist._id
         });
       }));
 
-      it('should set $scope.vm.error if error', inject(function (ListsService) {
+      it('should set $scope.vm.error if error', inject(function (ShoppinglistsService) {
         var errorMessage = 'error';
-        $httpBackend.expectPUT(/api\/lists\/([0-9a-fA-F]{24})$/).respond(400, {
+        $httpBackend.expectPUT(/api\/shoppinglists\/([0-9a-fA-F]{24})$/).respond(400, {
           message: errorMessage
         });
 
@@ -141,23 +141,23 @@
 
     describe('vm.remove()', function () {
       beforeEach(function () {
-        //Setup Lists
-        $scope.vm.list = mockList;
+        //Setup Shoppinglists
+        $scope.vm.shoppinglist = mockShoppinglist;
       });
 
-      it('should delete the List and redirect to Lists', function () {
+      it('should delete the Shoppinglist and redirect to Shoppinglists', function () {
         //Return true on confirm message
         spyOn(window, 'confirm').and.returnValue(true);
 
-        $httpBackend.expectDELETE(/api\/lists\/([0-9a-fA-F]{24})$/).respond(204);
+        $httpBackend.expectDELETE(/api\/shoppinglists\/([0-9a-fA-F]{24})$/).respond(204);
 
         $scope.vm.remove();
         $httpBackend.flush();
 
-        expect($state.go).toHaveBeenCalledWith('lists.list');
+        expect($state.go).toHaveBeenCalledWith('shoppinglists.list');
       });
 
-      it('should should not delete the List and not redirect', function () {
+      it('should should not delete the Shoppinglist and not redirect', function () {
         //Return false on confirm message
         spyOn(window, 'confirm').and.returnValue(false);
 
