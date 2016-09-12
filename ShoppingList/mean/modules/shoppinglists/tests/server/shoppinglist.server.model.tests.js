@@ -6,17 +6,17 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  List = mongoose.model('List');
+  Shoppinglist = mongoose.model('Shoppinglist');
 
 /**
  * Globals
  */
-var user, list;
+var user, shoppinglist;
 
 /**
  * Unit tests
  */
-describe('List Model Unit Tests:', function() {
+describe('Shoppinglist Model Unit Tests:', function() {
   beforeEach(function(done) {
     user = new User({
       firstName: 'Full',
@@ -28,8 +28,8 @@ describe('List Model Unit Tests:', function() {
     });
 
     user.save(function() { 
-      list = new List({
-        name: 'List Name',
+      shoppinglist = new Shoppinglist({
+        name: 'Shoppinglist Name',
         user: user
       });
 
@@ -40,16 +40,16 @@ describe('List Model Unit Tests:', function() {
   describe('Method Save', function() {
     it('should be able to save without problems', function(done) {
       this.timeout(0);
-      return list.save(function(err) {
+      return shoppinglist.save(function(err) {
         should.not.exist(err);
         done();
       });
     });
 
     it('should be able to show an error when try to save without name', function(done) { 
-      list.name = '';
+      shoppinglist.name = '';
 
-      return list.save(function(err) {
+      return shoppinglist.save(function(err) {
         should.exist(err);
         done();
       });
@@ -57,7 +57,7 @@ describe('List Model Unit Tests:', function() {
   });
 
   afterEach(function(done) { 
-    List.remove().exec(function(){
+    Shoppinglist.remove().exec(function(){
       User.remove().exec(function(){
         done();  
       });

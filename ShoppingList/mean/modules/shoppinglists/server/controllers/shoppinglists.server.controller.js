@@ -5,113 +5,113 @@
  */
 var path = require('path'),
   mongoose = require('mongoose'),
-  List = mongoose.model('List'),
+  Shoppinglist = mongoose.model('Shoppinglist'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
 /**
- * Create a List
+ * Create a Shoppinglist
  */
 exports.create = function(req, res) {
-  var list = new List(req.body);
-  list.user = req.user;
+  var shoppinglist = new Shoppinglist(req.body);
+  shoppinglist.user = req.user;
 
-  list.save(function(err) {
+  shoppinglist.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(list);
+      res.jsonp(shoppinglist);
     }
   });
 };
 
 /**
- * Show the current List
+ * Show the current Shoppinglist
  */
 exports.read = function(req, res) {
   // convert mongoose document to JSON
-  var list = req.list ? req.list.toJSON() : {};
+  var shoppinglist = req.shoppinglist ? req.shoppinglist.toJSON() : {};
 
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
-  list.isCurrentUserOwner = req.user && list.user && list.user._id.toString() === req.user._id.toString() ? true : false;
+  shoppinglist.isCurrentUserOwner = req.user && shoppinglist.user && shoppinglist.user._id.toString() === req.user._id.toString() ? true : false;
 
-  res.jsonp(list);
+  res.jsonp(shoppinglist);
 };
 
 /**
- * Update a List
+ * Update a Shoppinglist
  */
 exports.update = function(req, res) {
-  var list = req.list ;
+  var shoppinglist = req.shoppinglist ;
 
-  list = _.extend(list , req.body);
+  shoppinglist = _.extend(shoppinglist , req.body);
 
-  list.save(function(err) {
+  shoppinglist.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(list);
+      res.jsonp(shoppinglist);
     }
   });
 };
 
 /**
- * Delete an List
+ * Delete an Shoppinglist
  */
 exports.delete = function(req, res) {
-  var list = req.list ;
+  var shoppinglist = req.shoppinglist ;
 
-  list.remove(function(err) {
+  shoppinglist.remove(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(list);
+      res.jsonp(shoppinglist);
     }
   });
 };
 
 /**
- * List of Lists
+ * List of Shoppinglists
  */
 exports.list = function(req, res) { 
-  List.find().sort('-created').populate('user', 'displayName').exec(function(err, lists) {
+  Shoppinglist.find().sort('-created').populate('user', 'displayName').exec(function(err, shoppinglists) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(lists);
+      res.jsonp(shoppinglists);
     }
   });
 };
 
 /**
- * List middleware
+ * Shoppinglist middleware
  */
-exports.listByID = function(req, res, next, id) {
+exports.shoppinglistByID = function(req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'List is invalid'
+      message: 'Shoppinglist is invalid'
     });
   }
 
-  List.findById(id).populate('user', 'displayName').exec(function (err, list) {
+  Shoppinglist.findById(id).populate('user', 'displayName').exec(function (err, shoppinglist) {
     if (err) {
       return next(err);
-    } else if (!list) {
+    } else if (!shoppinglist) {
       return res.status(404).send({
-        message: 'No List with that identifier has been found'
+        message: 'No Shoppinglist with that identifier has been found'
       });
     }
-    req.list = list;
+    req.shoppinglist = shoppinglist;
     next();
   });
 };

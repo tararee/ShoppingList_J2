@@ -9,47 +9,47 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 /**
- * Invoke Lists Permissions
+ * Invoke Shoppinglists Permissions
  */
 exports.invokeRolesPolicies = function () {
   acl.allow([{
     roles: ['admin'],
     allows: [{
-      resources: '/api/lists',
+      resources: '/api/shoppinglists',
       permissions: '*'
     }, {
-      resources: '/api/lists/:listId',
+      resources: '/api/shoppinglists/:shoppinglistId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
-      resources: '/api/lists',
+      resources: '/api/shoppinglists',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/lists/:listId',
+      resources: '/api/shoppinglists/:shoppinglistId',
       permissions: ['get']
     }]
   }, {
     roles: ['guest'],
     allows: [{
-      resources: '/api/lists',
+      resources: '/api/shoppinglists',
       permissions: ['get']
     }, {
-      resources: '/api/lists/:listId',
+      resources: '/api/shoppinglists/:shoppinglistId',
       permissions: ['get']
     }]
   }]);
 };
 
 /**
- * Check If Lists Policy Allows
+ * Check If Shoppinglists Policy Allows
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an List is being processed and the current user created it then allow any manipulation
-  if (req.list && req.user && req.list.user && req.list.user.id === req.user.id) {
+  // If an Shoppinglist is being processed and the current user created it then allow any manipulation
+  if (req.shoppinglist && req.user && req.shoppinglist.user && req.shoppinglist.user.id === req.user.id) {
     return next();
   }
 
