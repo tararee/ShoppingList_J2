@@ -13,16 +13,39 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="content">Content</label>
+          <!-- <label for="content">Content</label>
           <textarea name="content" ng-model="article.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
-        </div>
+        </div> -->
         <div class="form-group">
           <input type="submit" value="Update" class="btn btn-default">
         </div>
         <div ng-show="error" class="text-danger">
           <strong ng-bind="error"></strong>
         </div>
+
       </fieldset>
     </form>
+     <div class="form-group">
+            <h2>Your Shopping List</h2>
+            <input type="text" ng-model="new_item" placeholder="Add Item" ng-class='{danger: form_error}'>
+            <button ng-click="addItem()">Add Item</button>
+        </div>
+        <div style="background-color:#FFFBA2;padding:10px;">
+            <div style="text-align:center;background-color:none;">
+        <ol>
+                <li ng-repeat="item in todo_lists | filter:searchText track by $index "> 
+                    <span class="item" ng-class="{striken : item_striken$index}"> {{ item }} </span> &nbsp; 
+                    <div class="right">
+                        <i class="fa fa-check" ng-show="!item_striken$index" ng-click="item_striken$index = !item_striken$index"></i> 
+                        <i class="fa fa-times" ng-show="item_striken$index" ng-click="item_striken$index = !item_striken$index"></i> &nbsp;
+                        <i class="fa fa-trash" ng-click="deleteItem($index)"></i>
+                    </div> 
+                </li>
+            </ol>
+        <br><br>
+        <div style="background-color:#FFFBA2;padding:10px;">
+            <div style="text-align:center;background-color:none;">
+               <!-- <label>Search: <input ng-model="searchText"></label>-->
+            </div>
   </div>
 </section>
