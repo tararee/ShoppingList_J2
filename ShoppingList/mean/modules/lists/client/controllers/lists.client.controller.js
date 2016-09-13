@@ -9,7 +9,7 @@
       {name:String,priority:Number}
       ];
       $scope.items=[
-      {name:String}
+      {name:String}, {color: String}
       ];
     });
 

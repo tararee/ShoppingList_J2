@@ -21,8 +21,9 @@ var ListSchema = new Schema({
     default: [],
   },
 
-  //TODO: meghan added this, make sure it's correct!!
-
+  color: {
+    type: String,
+  },
   priority: {
     type: String,
     default: '',
