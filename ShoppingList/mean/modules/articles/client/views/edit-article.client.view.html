@@ -36,12 +36,12 @@
                 <li ng-repeat="item in todo_lists | filter:searchText track by $index "> 
                     <span class="item" ng-class="{striken : item_striken$index}"> {{ item }} </span> &nbsp;
 
-                    <button ng-show="!item_striken$index" ng-click="item_striken$index = !item_striken$index">Check</button>
+                    <!-- <button ng-show="!item_striken$index" ng-click="item_striken$index = !item_striken$index">Check</button> -->
 
-                      <button ng-show="item_striken$index" ng-click="item_striken$index = !item_striken$index">Check</button>
+                      <!-- <button ng-show="item_striken$index" ng-click="item_striken$index = !item_striken$index">Check</button> -->
                       
                       <button ng-click="deleteItem($index)">Delete</button> 
-
+                     
                     <div class="right">
                         <i class="fa fa-check" ng-show="!item_striken$index" ng-click="item_striken$index = !item_striken$index"></i> 
                         <i class="fa fa-times" ng-show="item_striken$index" ng-click="item_striken$index = !item_striken$index"></i> &nbsp;

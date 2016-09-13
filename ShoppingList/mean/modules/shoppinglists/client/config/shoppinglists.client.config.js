@@ -1,4 +1,4 @@
-(function () {
+// (function () {
   'use strict';
 
   angular
@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'shoppinglists', {
-      title: 'Create Shoppinglist',
-      state: 'shoppinglists.create',
-      roles: ['user']
-    });
+     Menus.addSubMenuItem('topbar', 'shoppinglists', {
+       title: 'Create Shoppinglist',
+       state: 'shoppinglists.create',
+       roles: ['user']
+     });
   }
 })();
