@@ -5,6 +5,9 @@
   </div>
   <p class="lead" ng-bind="vm.list.content"></p>
   <div class="list-group">
+  <h4 data-ng-repeat="item in vm.list.items|orderBy:'name'" class="list-group-item">
+  <input type="checkbox"> {{item.name}} - {{item.priority}}</h4>
+
     <a data-ng-repeat="item in vm.list.items|orderBy:'name'"
        class="list-group-item" ng-click="vm.remove(item)">
       <h4 class="list-group-item-heading" ng-bind="item.name + ' - ' + item.priority"></h4>
