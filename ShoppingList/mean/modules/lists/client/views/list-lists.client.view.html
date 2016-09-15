@@ -11,8 +11,7 @@
     <a class="btn btn-primary pull-right" ui-sref="lists.view({ listId: list._id })">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
-      <h4 style="color:{{list.color}}" class="list-group-item-heading" ng-bind="list.name"></h4>
-      <h6 class="list-group-item-heading" ng-bind="list.color"></h6>
+      <h4 style="color:{{list.color}}" ui-sref="lists.view({ listId: list._id })" class="list-group-item-heading" ng-bind="list.name"></h4>
     </span>    
         <a href="/lists/create" class="btn btn-default" style="position:absolute; top:75px; right:60px; color:black;"
       >Add a Shopping List</a>

@@ -1,18 +1,25 @@
 <section>
   <div class="page-header">
     <h1 ng-bind="vm.list.name"></h1>
+    
     <a href="/lists" class="btn btn-default" style="position:absolute; top:75px; right:60px; color:black;">Back to Main Lists</a>
   </div>
-  <p class="lead" ng-bind="vm.list.content"></p>
-  <div class="list-group">
-  <h4 data-ng-repeat="item in vm.list.items|orderBy:'name'" class="list-group-item">
-  <input type="checkbox"> {{item.name}} - {{item.priority}}</h4>
+<!-- need to create a css style for this
+ #check
+  {text-decoration: line-through;}  -->
+<div class="list-group">
+  <h4 data-ng-repeat="item in vm.list.items|orderBy:'name'"  class="list-group-item">
 
-    <a data-ng-repeat="item in vm.list.items|orderBy:'name'"
+  <input type="checkbox" ng-model="checkboxModel.value"
+           ng-true-value="'cross'" ng-false-value="'uncross'"> <span  id="{{checkboxModel.value}}" ng-click="vm.remove(item)"> {{item.name}} - {{item.priority}} - {{checkboxModel.value}}</span></h4>
+  
+  <!-- basic no checkbox version -->
+  <!--      <a data-ng-repeat="item in vm.list.items|orderBy:'name'"
        class="list-group-item" ng-click="vm.remove(item)">
       <h4 class="list-group-item-heading" ng-bind="item.name + ' - ' + item.priority"></h4>
-    </a>
+    </a> -->
   </div>
+  
 <hr>
 <div class="col-md-12">
     <form name="vm.form.listForm" class="form-horizontal" ng-submit="vm.saveItem(vm.form.listForm.$valid)" novalidate>
