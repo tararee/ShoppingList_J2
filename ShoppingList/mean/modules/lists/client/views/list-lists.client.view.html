@@ -2,20 +2,20 @@
   <div class="page-header">
     <h1>Shopping Lists</h1>
   </div>
-  <div class="list-group">
+  <h4 class="list-group">
     <span ng-repeat="list in vm.lists"
        class="list-group-item">
-    <a class="btn btn-primary pull-right" ng-click="vm.elim(list)">
-      <i class="glyphicon glyphicon-trash"></i>
-    </a>
-    <a class="btn btn-primary pull-right" ui-sref="lists.view({ listId: list._id })">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
+    <!-- <a class="btn btn-primary pull-right" ng-click="vm.elim(list)"> -->
+      <i class="pull-right glyphicon glyphicon-trash" style="margin-top: 10px; margin-left: 10px"  ng-click="vm.elim(list)" ></i> 
+    <!--  </a> -->
+    <!-- <a class="btn btn-primary pull-right" ui-sref="lists.view({ listId: list._id })"> -->
+      <i class="pull-right glyphicon glyphicon-pencil" style="margin-top: 10px" ui-sref="lists.view({ listId: list._id })"></i>
+  <!--   </a> -->
       <h4 style="color:{{list.color}}" ui-sref="lists.view({ listId: list._id })" class="list-group-item-heading" ng-bind="list.name"></h4>
     </span>    
         <a href="/lists/create" class="btn btn-default" style="position:absolute; top:75px; right:60px; color:black;"
       >Add a Shopping List</a>
-  </div>
+  </h4>
   <div class="alert alert-warning text-center" ng-if="vm.lists.$resolved && !vm.lists.length">
     No Lists yet, why don't you <a ui-sref="lists.create">create one</a>?
   </div>

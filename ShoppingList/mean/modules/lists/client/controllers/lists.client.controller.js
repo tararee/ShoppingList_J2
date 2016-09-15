@@ -98,7 +98,7 @@
       }
 
       function successCallback(res) {
-        $state.go('lists.view', {
+        $state.go('lists.list', {
           listId: res._id
         });
       }

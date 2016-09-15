@@ -4,14 +4,16 @@
     
     <a href="/lists" class="btn btn-default" style="position:absolute; top:75px; right:60px; color:black;">Back to Main Lists</a>
   </div>
-<!-- need to create a css style for this
- #check
-  {text-decoration: line-through;}  -->
+
 <div class="list-group">
   <h4 data-ng-repeat="item in vm.list.items|orderBy:'name'"  class="list-group-item">
 
+    <!--  <a class="btn btn-primary pull-right" ng-click="vm.remove(item)"> -->
+      <i ng-click="vm.remove(item)" class=" pull-right glyphicon glyphicon-trash"></i>
+    <!--   </a> -->
+
   <input type="checkbox" ng-model="checkboxModel.value"
-           ng-true-value="'cross'" ng-false-value="'uncross'"> <span  id="{{checkboxModel.value}}" ng-click="vm.remove(item)"> {{item.name}} - {{item.priority}} - {{checkboxModel.value}}</span></h4>
+           ng-true-value="'cross'" ng-false-value="'uncross'"> <span  id="{{checkboxModel.value}}" > {{item.name}} - {{item.priority}} </span></h4>
   
   <!-- basic no checkbox version -->
   <!--      <a data-ng-repeat="item in vm.list.items|orderBy:'name'"

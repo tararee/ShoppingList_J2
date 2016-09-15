@@ -5,9 +5,11 @@
   <div class="col-md-12">
     <form name="vm.form.listForm" class="form-horizontal" ng-submit="vm.save(vm.form.listForm.$valid)" novalidate>
       <fieldset>
+
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
           <input name="name" type="text" ng-model="vm.list.name" id="name" class="form-control" placeholder="Create a new shopping list here..." required>
+        </div>
           <div ng-messages="vm.form.listForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">List name is required.</p>
           </div>
