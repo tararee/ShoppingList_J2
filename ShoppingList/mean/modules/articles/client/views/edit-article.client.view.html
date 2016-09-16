@@ -1,0 +1,58 @@
+<section ng-controller="ArticlesController" ng-init="findOne()">
+  <div class="page-header">
+    <h1>Edit Shopping List</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="articleForm" class="form-horizontal" ng-submit="update(articleForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label for="title">Title</label>
+          <input name="title" type="text" ng-model="article.title" id="title" class="form-control" placeholder="Title" required>
+          <div ng-messages="articleForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Article title is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <!-- <label for="content">Content</label>
+          <textarea name="content" ng-model="article.content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+        </div> -->
+        <div class="form-group">
+          <input type="submit" value="Update" class="btn btn-default">
+        </div>
+        <div ng-show="error" class="text-danger">
+          <strong ng-bind="error"></strong>
+        </div>
+
+      </fieldset>
+    </form>
+     <div class="form-group">
+            <h2>Your Shopping List</h2>
+            <input type="text" ng-model="new_item" placeholder="Add Item" ng-class='{danger: form_error}'>
+            <button ng-click="addItem()">Add Item</button>
+        </div>
+        <div style="background-color:#FFFBA2;padding:10px;">
+            <div style="text-align:center;background-color:none;">
+        <ol>
+                <li ng-repeat="item in todo_lists | filter:searchText track by $index "> 
+                    <span class="item" ng-class="{striken : item_striken$index}"> {{ item }} </span> &nbsp;
+
+                    <!-- <button ng-show="!item_striken$index" ng-click="item_striken$index = !item_striken$index">Check</button> -->
+
+                      <!-- <button ng-show="item_striken$index" ng-click="item_striken$index = !item_striken$index">Check</button> -->
+                      
+                      <button ng-click="deleteItem($index)">Delete</button> 
+                     
+                    <div class="right">
+                        <i class="fa fa-check" ng-show="!item_striken$index" ng-click="item_striken$index = !item_striken$index"></i> 
+                        <i class="fa fa-times" ng-show="item_striken$index" ng-click="item_striken$index = !item_striken$index"></i> &nbsp;
+                        <i class="fa fa-trash" ng-click="deleteItem($index)"></i>
+                    </div> 
+                </li>
+            </ol>
+        <br><br>
+        <div style="background-color:#FFFBA2;padding:10px;">
+            <div style="text-align:center;background-color:none;">
+               <!-- <label>Search: <input ng-model="searchText"></label>-->
+            </div>
+  </div>
+</section>

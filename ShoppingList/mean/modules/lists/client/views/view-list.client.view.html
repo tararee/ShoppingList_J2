@@ -1,0 +1,46 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.list.name"></h1>
+    
+    <a href="/lists" class="btn btn-default" style="position:absolute; top:75px; right:60px; color:black;">Back to Main Lists</a>
+  </div>
+
+<div class="list-group">
+  <h4 data-ng-repeat="item in vm.list.items|orderBy:'name'"  class="list-group-item">
+
+    <!--  <a class="btn btn-primary pull-right" ng-click="vm.remove(item)"> -->
+      <i ng-click="vm.remove(item)" class=" pull-right glyphicon glyphicon-trash"></i>
+    <!--   </a> -->
+
+  <input type="checkbox" ng-model="checkboxModel.value"
+           ng-true-value="'cross'" ng-false-value="'uncross'"> <span  id="{{checkboxModel.value}}" > {{item.name}} - {{item.priority}} </span></h4>
+  
+  <!-- basic no checkbox version -->
+  <!--      <a data-ng-repeat="item in vm.list.items|orderBy:'name'"
+       class="list-group-item" ng-click="vm.remove(item)">
+      <h4 class="list-group-item-heading" ng-bind="item.name + ' - ' + item.priority"></h4>
+    </a> -->
+  </div>
+  
+<hr>
+<div class="col-md-12">
+    <form name="vm.form.listForm" class="form-horizontal" ng-submit="vm.saveItem(vm.form.listForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Items</label>
+          <input name="name" type="text" ng-model="vm.item.name" id="name" class="form-control" placeholder="add items..." required>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Priority</label>
+          <input name="priority" type="text" ng-model="vm.item.priority" id="priority" class="form-control" placeholder="ASAP, soon, it can wait..." required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.list._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  </section>
